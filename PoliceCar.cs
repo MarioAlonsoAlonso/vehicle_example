@@ -14,6 +14,7 @@
             speedRadar = new SpeedRadar();
         }
 
+
         public void UseRadar(Vehicle vehicle)
         {
             if (isPatrolling)
