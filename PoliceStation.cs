@@ -4,16 +4,20 @@
     public class PoliceStation
     {
         private List<PoliceCar> policeCars;
+        public string City { get; private set; }
 
-        public PoliceStation()
+        public PoliceStation(string city)
         {
             policeCars = new List<PoliceCar>();
+            City = city;
+            Console.WriteLine(WriteMessage("Created"));
         }
 
-        public void RegisterPoliceCar(string plate, bool radar)
+        public void RegisterPoliceCar(PoliceCar policeCar)
         {
-            PoliceCar policeCar = new PoliceCar(plate, radar);
             policeCars.Add(policeCar);
+            policeCar.SetPoliceStation(this);
+            Console.WriteLine(policeCar.WriteMessage($"Registered to the police station of {City}"));
         }
 
         public void ActivateAlert(string plate)
@@ -25,6 +29,11 @@
                     policeCar.StartChasing(plate);
                 }
             }
+        }
+
+        public string WriteMessage(string message)
+        {
+            return $"{City} Police Station: {message}";
         }
     }
 }
