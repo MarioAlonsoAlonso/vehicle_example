@@ -1,4 +1,4 @@
-﻿namespace Practice2
+﻿namespace Practice1
 {
     class PoliceCar : Vehicle
     {
@@ -6,13 +6,22 @@
         private const string typeOfVehicle = "Police Car";
         private bool isPatrolling;
         private bool isChasing;
-        private SpeedRadar speedRadar;
-        public PoliceStation policeStation;
+        private SpeedRadar? speedRadar;
+        public PoliceStation? policeStation;
 
-        public PoliceCar(string plate) : base(typeOfVehicle, plate)
+        public PoliceCar(string plate, bool radar) : base(typeOfVehicle, plate)
         {
+            policeStation = null;
+            isChasing = false;
             isPatrolling = false;
-            speedRadar = new SpeedRadar();
+            if (radar)
+            {
+                speedRadar = new SpeedRadar();
+            }
+            else
+            {
+                speedRadar = null;
+            }
         }
 
         public PoliceStation GetPoliceStation()
@@ -30,24 +39,31 @@
 
         public void UseRadar(Vehicle vehicle)
         {
-            if (isPatrolling)
+            if (speedRadar is SpeedRadar)
             {
-                speedRadar.TriggerRadar(vehicle);
-                string meassurement = speedRadar.GetLastReading();
-                Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
-                if (meassurement.Contains("above"))
+                if (isPatrolling)
                 {
-                    StartChasing(vehicle.GetPlate());
-                    PoliceStation policeStation = GetPoliceStation();
-                    if (policeStation != null)
+                    speedRadar.TriggerRadar(vehicle);
+                    string meassurement = speedRadar.GetLastReading();
+                    Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
+                    if (meassurement.Contains("above"))
                     {
-                        policeStation.ActivateAlert(vehicle.GetPlate());
+                        StartChasing(vehicle.GetPlate());
+                        PoliceStation? policeStation = GetPoliceStation();
+                        if (policeStation != null)
+                        {
+                            policeStation.ActivateAlert(vehicle.GetPlate());
+                        }
                     }
+                }
+                else
+                {
+                    Console.WriteLine(WriteMessage($"has no active radar."));
                 }
             }
             else
             {
-                Console.WriteLine(WriteMessage($"has no active radar."));
+                Console.WriteLine(WriteMessage($"has no radar."));
             }
         }
 
@@ -84,10 +100,17 @@
 
         public void PrintRadarHistory()
         {
-            Console.WriteLine(WriteMessage("Report radar speed history:"));
-            foreach (float speed in speedRadar.SpeedHistory)
+            if (speedRadar is SpeedRadar)
             {
-                Console.WriteLine(speed);
+                Console.WriteLine(WriteMessage("Report radar speed history:"));
+                foreach (float speed in speedRadar.SpeedHistory)
+                {
+                    Console.WriteLine(speed);
+                }
+            }
+            else
+            {
+                Console.WriteLine(WriteMessage("has no radar."));
             }
         }
 

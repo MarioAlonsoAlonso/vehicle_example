@@ -1,4 +1,4 @@
-﻿namespace Practice2
+﻿namespace Practice1
 
 {
     public class PoliceStation
@@ -10,9 +10,9 @@
             policeCars = new List<PoliceCar>();
         }
 
-        public void RegisterPoliceCar(string plate)
+        public void RegisterPoliceCar(string plate, bool radar)
         {
-            PoliceCar policeCar = new PoliceCar(plate);
+            PoliceCar policeCar = new PoliceCar(plate, radar);
             policeCars.Add(policeCar);
         }
 

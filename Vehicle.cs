@@ -1,4 +1,4 @@
-﻿namespace Practice2
+﻿namespace Practice1
 {
     abstract class Vehicle : IMessageWritter
     {
