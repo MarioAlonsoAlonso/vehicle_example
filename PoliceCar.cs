@@ -1,4 +1,4 @@
-﻿namespace Practice1
+﻿namespace Practice2
 {
     class PoliceCar : Vehicle
     {
@@ -7,12 +7,25 @@
         private bool isPatrolling;
         private bool isChasing;
         private SpeedRadar speedRadar;
+        public PoliceStation policeStation;
 
         public PoliceCar(string plate) : base(typeOfVehicle, plate)
         {
             isPatrolling = false;
             speedRadar = new SpeedRadar();
         }
+
+        public PoliceStation GetPoliceStation()
+        {
+            return policeStation;
+        }
+
+        public void SetPoliceStation(PoliceStation policeStation)
+        {
+            this.policeStation = policeStation;
+        }
+
+
 
 
         public void UseRadar(Vehicle vehicle)
@@ -22,6 +35,15 @@
                 speedRadar.TriggerRadar(vehicle);
                 string meassurement = speedRadar.GetLastReading();
                 Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
+                if (meassurement.Contains("above"))
+                {
+                    StartChasing(vehicle.GetPlate());
+                    PoliceStation policeStation = GetPoliceStation();
+                    if (policeStation != null)
+                    {
+                        policeStation.ActivateAlert(vehicle.GetPlate());
+                    }
+                }
             }
             else
             {
