@@ -15,10 +15,10 @@
             SpeedHistory = new List<float>();
         }
 
-        public void TriggerRadar(Vehicle vehicle)
+        public void TriggerRadar(Taxi taxi)
         {
-            plate = vehicle.GetPlate();
-            speed = vehicle.GetSpeed();
+            plate = taxi.GetPlate();
+            speed = taxi.GetSpeed();
             SpeedHistory.Add(speed);
         }
         

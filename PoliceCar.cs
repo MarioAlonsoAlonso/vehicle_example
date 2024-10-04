@@ -6,11 +6,13 @@
         private const string typeOfVehicle = "Police Car";
         private bool isPatrolling;
         private bool isChasing;
+        private string plate;
         private SpeedRadar? speedRadar;
         public PoliceStation? policeStation;
 
-        public PoliceCar(string plate, bool radar) : base(typeOfVehicle, plate)
+        public PoliceCar(string plate, bool radar) : base(typeOfVehicle)
         {
+            this.plate = plate;
             policeStation = null;
             isChasing = false;
             isPatrolling = false;
@@ -34,25 +36,27 @@
             this.policeStation = policeStation;
         }
 
+        public string GetPlate()
+        {
+            return plate;
+        }
 
-
-
-        public void UseRadar(Vehicle vehicle)
+        public void UseRadar(Taxi taxi)
         {
             if (speedRadar is SpeedRadar)
             {
                 if (isPatrolling)
                 {
-                    speedRadar.TriggerRadar(vehicle);
+                    speedRadar.TriggerRadar(taxi);
                     string meassurement = speedRadar.GetLastReading();
                     Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
                     if (meassurement.Contains("above"))
                     {
-                        StartChasing(vehicle.GetPlate());
+                        StartChasing(taxi.GetPlate());
                         PoliceStation? policeStation = GetPoliceStation();
                         if (policeStation != null)
                         {
-                            policeStation.ActivateAlert(vehicle.GetPlate());
+                            policeStation.ActivateAlert(taxi.GetPlate());
                         }
                     }
                 }
