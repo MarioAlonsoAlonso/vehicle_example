@@ -19,10 +19,12 @@
             if (radar)
             {
                 speedRadar = new SpeedRadar();
+                Console.WriteLine(WriteMessage("Created with radar"));
             }
             else
             {
                 speedRadar = null;
+                Console.WriteLine(WriteMessage("Created without radar"));
             }
         }
 
@@ -129,6 +131,11 @@
                 isChasing = true;
                 Console.WriteLine(WriteMessage($"started chasing {plate}."));
             }
+        }
+
+        public override string WriteMessage(string message)
+        {
+            return $"{GetTypeOfVehicle()} with plate {GetPlate()}: {message}";
         }
     }
 }

@@ -13,6 +13,7 @@
             isCarryingPassengers = false;
             this.plate = plate;
             SetSpeed(45.0f);
+            Console.WriteLine(WriteMessage("Created"));
         }
 
         public string GetPlate()
@@ -46,6 +47,11 @@
             {
                 Console.WriteLine(WriteMessage("is not on a ride."));
             }
+        }
+
+        public override string WriteMessage(string message)
+        {
+            return $"{GetTypeOfVehicle()} with plate {GetPlate()}: {message}";
         }
     }
 }

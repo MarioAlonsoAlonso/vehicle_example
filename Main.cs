@@ -10,11 +10,6 @@
             PoliceCar policeCar1 = new PoliceCar("0001 CNP", true);
             PoliceCar policeCar2 = new PoliceCar("0002 CNP", true);
 
-            Console.WriteLine(taxi1.WriteMessage("Created"));
-            Console.WriteLine(taxi2.WriteMessage("Created"));
-            Console.WriteLine(policeCar1.WriteMessage("Created"));
-            Console.WriteLine(policeCar2.WriteMessage("Created"));
-
             policeCar1.StartPatrolling();
             policeCar1.UseRadar(taxi1);
 

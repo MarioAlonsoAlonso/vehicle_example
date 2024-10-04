@@ -33,7 +33,7 @@
         }
 
         //Implment interface with Vechicle message structure
-        public string WriteMessage(string message)
+        public virtual string WriteMessage(string message)
         {
             return $"{this}: {message}";
         }

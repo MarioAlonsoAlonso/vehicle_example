@@ -6,6 +6,7 @@
 
         public Scooter() : base(typeOfVehicle)
         {
+            Console.WriteLine(WriteMessage("Created"));
         }
     }
 }
